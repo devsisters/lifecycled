@@ -24,6 +24,8 @@ const (
 )
 
 func main() {
+	log.Info("Storykim's custom app : see github.com/devsisters/lifecycled")
+
 	app := kingpin.New("lifecycled",
 		"Handle AWS autoscaling lifecycle events gracefully")
 

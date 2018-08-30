@@ -102,9 +102,10 @@ func (q *Queue) Receive(ch chan *sqs.Message) error {
 			QueueUrl:            aws.String(q.url),
 			MaxNumberOfMessages: aws.Int64(1),
 			WaitTimeSeconds:     aws.Int64(longPollingWaitTimeSeconds),
-			VisibilityTimeout:   aws.Int64(0),
+			VisibilityTimeout:   aws.Int64(30),
 		})
 		if err != nil {
+			log.Errorln("During receive : ", err)
 			return err
 		}
 		for _, m := range resp.Messages {
