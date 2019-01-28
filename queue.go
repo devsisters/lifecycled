@@ -102,7 +102,7 @@ func (q *Queue) Receive(ch chan *sqs.Message) error {
 			QueueUrl:            aws.String(q.url),
 			MaxNumberOfMessages: aws.Int64(1),
 			WaitTimeSeconds:     aws.Int64(longPollingWaitTimeSeconds),
-			VisibilityTimeout:   aws.Int64(30),
+			VisibilityTimeout:   aws.Int64(30), // 당시 롱폴링이 제대로 안 되는 이슈가 있어 수정해봤으나 롱폴링과 별 관련없는 필드인 것 같음. 되돌려도 될 것 같으나 테스트 필요
 		})
 		if err != nil {
 			log.Errorln("During receive : ", err)

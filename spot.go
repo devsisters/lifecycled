@@ -20,6 +20,9 @@ func pollSpotTermination() chan time.Time {
 	log.Debugf("Polling metadata service for spot termination notices")
 	go func() {
 		for range time.NewTicker(time.Second * 5).C {
+			// 이렇게 함수로 한 번 더 감싸지 않으면 이 함수가 끝나지 않아 아래 res.Body.Close()가
+			// 불리지않는다. 메모리릭으로 이어지기 때문에 방어코드를
+			// 짰음
 			func() {
 				res, err := http.Get(metadataURLTerminationTime)
 				if err != nil {
